@@ -9,4 +9,4 @@ async function connectToDatabase() {
   }
 }
 
-module.exports = { mongoose, connectToDatabase };
+module.exports = { connectToDatabase };
