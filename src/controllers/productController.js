@@ -1,9 +1,18 @@
-const express = require("express");
 const productModel = require("../models/product.model");
 
-const getCarts = async (req, res) => {
-    res.status(200).send("Welcome onbord, hope u can swim");
-  };
+const getProducts = async (req, res) => {
+  try {
+    const products = await productModel.find();
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({
+      message: "Failed to fetch products",
+      error: error.message,
+    });
+  }
+};
 
 const createNewProduct = async (req, res) => {
   if (!req.body) {
@@ -26,4 +35,4 @@ const createNewProduct = async (req, res) => {
     });
   }
 };
-module.exports = { createNewProduct, getCarts} ;
+module.exports = { createNewProduct, getProducts };
