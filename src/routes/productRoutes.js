@@ -7,8 +7,6 @@ const {
   checkEnv,
 } = require("../controllers/productController");
 
-const router = express.Router();
-
 router.get("/", getProducts);
 router.post("/create", createNewProduct);
 router.get("/check-env", checkEnv);
