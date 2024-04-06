@@ -35,4 +35,9 @@ const createNewProduct = async (req, res) => {
     });
   }
 };
-module.exports = { createNewProduct, getProducts };
+
+const checkEnv = (req, res) => {
+  res.send(`MONGODB_URI: ${process.env.MONGODB_URI}`);
+};
+
+module.exports = { createNewProduct, getProducts, checkEnv };
