@@ -2,10 +2,16 @@ const productModel = require("../models/productModel");
 
 const getProducts = async (req, res) => {
   try {
+    console.log("Fetching products...");
+
     const products = await productModel.find();
+
+    console.log("Products:", products);
+
     res.status(200).json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
+
     res.status(500).json({
       message: "Failed to fetch products",
       error: error.message,
