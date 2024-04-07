@@ -1,14 +1,22 @@
 const express = require("express");
 const cors = require("cors");
-const { mongoose, connectToDatabase } = require("./src/config/database");
-const app = require("./app");
+const productRouter = require("./src/routes/productRoutes");
+const { connectToDatabase } = require("./src/config/database");
+
+const app = express();
 
 connectToDatabase();
 
-// Added CORS middleware
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.use("/api", productRouter);
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "Connected to db",
+  });
 });
+
+module.exports = app;
