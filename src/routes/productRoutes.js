@@ -1,12 +1,16 @@
 const express = require("express");
-const router = express.Router();
+const cors = require("cors");
+const { mongoose, connectToDatabase } = require("./src/config/database");
+const productController = require("./src/controllers/productController");
+const app = express();
 
-const {
-  createNewProduct,
-  getProducts,
-} = require("../controllers/productController");
+connectToDatabase();
 
-router.get("/", getProducts);
-router.post("/create", createNewProduct);
+app.use(cors());
 
-module.exports = router;
+app.get("/api/intro/product", productController.getProducts);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
