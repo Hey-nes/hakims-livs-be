@@ -33,4 +33,4 @@ const createNewProduct = async (req, res) => {
   }
 };
 
-module.exports = { createNewProduct, getProducts, checkEnv };
+module.exports = { createNewProduct, getProducts };
