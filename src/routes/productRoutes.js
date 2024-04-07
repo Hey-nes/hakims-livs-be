@@ -4,11 +4,9 @@ const router = express.Router();
 const {
   createNewProduct,
   getProducts,
-  checkEnv,
 } = require("../controllers/productController");
 
 router.get("/", getProducts);
 router.post("/create", createNewProduct);
-router.get("/check-env", checkEnv);
 
 module.exports = router;
