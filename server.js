@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const productRouter = require("./src/routes/productRoutes");
+const categoryRouter = require("./src/routes/categoryRoutes");
 const { connectToDatabase } = require("./src/config/database");
 
 const app = express();
@@ -11,7 +12,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", productRouter);
+app.use("/products", productRouter);
+app.use("/categories", categoryRouter);
+
+// const port = process.env.PORT || 8000;
+// app.listen( port, () => {
+//   console.log("Server is Running on port ", port);
+// });
 
 app.get("/", (req, res) => {
   res.json({
