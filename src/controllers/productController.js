@@ -4,7 +4,7 @@ const getProducts = async (req, res) => {
   try {
     console.log("Fetching products...");
 
-    const products = await productModel.find();
+    const products = await productModel.find().populate("category");
 
     console.log("Products:", products);
 
