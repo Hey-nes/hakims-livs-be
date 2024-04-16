@@ -3,6 +3,7 @@ const cors = require("cors");
 const productRouter = require("./src/routes/productRoutes");
 const categoryRouter = require("./src/routes/categoryRoutes"); 
 
+
 const { connectToDatabase } = require("./src/config/database");
 
 const app = express();
@@ -21,5 +22,11 @@ app.get("/", (req, res) => {
     message: "Connected to db",
   });
 });
+
+// const port = process.env.PORT || 3000; // Use the provided port or default to 3000
+
+// app.listen(port, () => {
+//   console.log(`Server is listening on port ${port}`);
+// });
 
 module.exports = app;
