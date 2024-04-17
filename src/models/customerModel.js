@@ -11,7 +11,9 @@ const customerSchema = new mongoose.Schema({
     type: String,
     required: true,
     match: /^[a-zA-Z\s'-]+$/, // Allow Latin letters (including Nordic), spaces, apostrophes, and hyphens
-    maxlength: 100 // Max 100 characters
+    maxlength: 100,
+    set: encrypt, // Encrypt the email before saving
+    get: decrypt// Max 100 characters
   },
   email: {
     type: String,
@@ -24,6 +26,8 @@ const customerSchema = new mongoose.Schema({
     street: {
       type: String,
       required: true,
+      set: encrypt, // Encrypt the address before saving
+      get: decrypt
     },
     streetNumber: {
       type: Number,
