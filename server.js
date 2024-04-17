@@ -23,10 +23,10 @@ app.get("/", (req, res) => {
   });
 });
 
-const port = process.env.PORT || 3000; // Use the provided port or default to 3000
+// const port = process.env.PORT || 3000; // Use the provided port or default to 3000
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server is listening on port ${port}`);
+// });
 
 module.exports = app;
