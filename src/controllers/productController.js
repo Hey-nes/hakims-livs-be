@@ -72,4 +72,21 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = { createNewProduct, getProducts, updateProduct, deleteProduct };
+const getProductsByCategory = async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+    console.log(`Fetching products for category ${categoryId}...`);
+    const products = await productModel.find({ category: categoryId }).populate("category");
+    console.log("Products:", products);
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error fetching products by category:", error);
+    res.status(500).json({
+      message: "Failed to fetch products by category",
+      error: error.message,
+    });
+  }
+};
+
+
+module.exports = { createNewProduct, getProducts, updateProduct, deleteProduct,getProductsByCategory };
