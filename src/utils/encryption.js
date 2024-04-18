@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const encryptionKey = require('./encryptionKey');
+const encryptionKey = require("../config/encryptionKey");
 
 const IV_LENGTH = 16;
 

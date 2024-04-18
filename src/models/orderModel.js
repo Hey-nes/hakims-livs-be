@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
+const { encrypt, decrypt } = require("../utils/encryption");
 const orderSchema = new mongoose.Schema({
   orderNumber: {
     type: String,
     required: true,
     unique: true,
-    match: /^[a-zA-Z0-9 !&?äöåÄÖÅ]+$/, 
-    maxlength: 50 
+    match: /^[a-zA-Z0-9 !&?äöåÄÖÅ]+$/,
+    maxlength: 50,
   },
   date: {
     type: Date,
@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema({
     {
       productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
+        ref: "Product",
         required: true,
       },
       name: {
@@ -44,26 +44,32 @@ const orderSchema = new mongoose.Schema({
   customerInfo: {
     customerId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Customer',
+      ref: "Customer",
       required: true,
     },
     firstName: {
       type: String,
       required: true,
-      match: /^[a-zA-Z\s'-]+$/, 
-      maxlength: 100 
+      match: /^[a-zA-Z\s'-]+$/,
+      maxlength: 100,
     },
     lastName: {
       type: String,
       required: true,
-      match: /^[a-zA-Z\s'-]+$/, 
-      maxlength: 100 
+      match: /^[a-zA-Z\s'-]+$/,
+      maxlength: 100,
     },
     email: {
       type: String,
       required: true,
-      match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 
-      maxlength: 50
+      match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      maxlength: 50,
+    },
+    creditCardNumber: {
+      type: String,
+      required: true,
+      set: encrypt,
+      get: decrypt,
     },
     address: {
       street: {
@@ -77,8 +83,8 @@ const orderSchema = new mongoose.Schema({
       postNumber: {
         type: Number,
         required: true,
-        match: /^[0-9]{5}$/, 
-        maxlength: 6 
+        match: /^[0-9]{5}$/,
+        maxlength: 6,
       },
       city: {
         type: String,
@@ -88,6 +94,6 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model("Order", orderSchema);
 
 module.exports = Order;

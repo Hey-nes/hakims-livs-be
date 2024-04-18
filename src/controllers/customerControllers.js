@@ -4,6 +4,7 @@ const createCustomer = async (req, res) => {
   try {
     const { firstName, lastName, email, address, phone } = req.body;
 
+  
     const customer = new Customer({
       firstName,
       lastName,
