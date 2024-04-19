@@ -1,11 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const productRouter = require("./src/routes/productRoutes");
-const categoryRouter = require("./src/routes/categoryRoutes"); 
-const { validateCreateCustomer } = require("./src/middlewares/customerValidation");
+const categoryRouter = require("./src/routes/categoryRoutes");
+const orderRouter = require("./src/routes/orderRoutes");
 const { connectToDatabase } = require("./src/config/database");
 const customerRouter = require("./src/routes/customerRoutes");
-const { authenticateToken } = require('./src/middlewares/authmiddlewares')
 const authRoutes = require("./src/routes/authRoutes");
 const app = express();
 
@@ -16,10 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/", productRouter);
-app.use("/", categoryRouter); 
-app.use("/api/customers", validateCreateCustomer, customerRouter)
-app.use('/api/auth', authRoutes);
-app.use('/api/products', authenticateToken, require('./routes/productRoutes'));
+app.use("/", categoryRouter);
+app.use("/", orderRouter);
+app.use("/api/customers", customerRouter);
+app.use("/api/auth", require("./src/routes/authRoutes"));
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.json({
