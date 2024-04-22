@@ -1,7 +1,7 @@
 const validateCreateCustomer = (req, res, next) => {
-  const { firstName, lastName, email, address, phone } = req.body;
+  const { firstName, lastName, email, address } = req.body;
 
-  if (!firstName || !lastName || !email || !address || !phone) {
+  if (!firstName || !lastName || !email || !address) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -10,16 +10,7 @@ const validateCreateCustomer = (req, res, next) => {
     return res.status(400).json({ message: "Invalid email format" });
   }
 
-  const phoneRegex = /^\d{10,15}$/;
-  if (!phone.match(phoneRegex)) {
-    return res.status(400).json({ message: "Invalid phone number format" });
-  }
-
-  if (typeof address !== "string" || address.trim() === "") {
-    return res.status(400).json({ message: "Invalid address format" });
-  }
-
   next();
 };
 
-module.exports = {validateCreateCustomer}; 
+module.exports = { validateCreateCustomer };
