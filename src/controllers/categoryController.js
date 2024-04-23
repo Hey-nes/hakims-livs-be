@@ -15,12 +15,22 @@ const getCategory = async (req, res) => {
   }
 };
 
+
+
 const createNewCategory = async (req, res) => {
   try {
-    if (!req.body) {
-      return res.status(400).json({ message: "Invalid request body" });
+    if (!req.body || !req.body.name) {
+      return res.status(400).json({ message: "Category name is required" });
     }
-    const category = new categoryModel(req.body);
+    const { name } = req.body;
+    if (!name.match(/^[a-zA-Z0-9 !&?äöåÄÖÅ]+$/)) {
+      return res.status(400).json({ message: "Invalid category name" });
+    }
+    if (name.length > 50) {
+      return res.status(400).json({ message: "Category name exceeds maximum length" });
+    }
+    
+    const category = new categoryModel({ name });
     await category.save();
     res.status(201).json({
       message: "New category created successfully!",
@@ -38,9 +48,16 @@ const createNewCategory = async (req, res) => {
 const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await categoryModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
+    const { name } = req.body;
+    
+    if (!name.match(/^[a-zA-Z0-9 !&?äöåÄÖÅ]+$/)) {
+      return res.status(400).json({ message: "Invalid category name" });
+    }
+    if (name.length > 50) {
+      return res.status(400).json({ message: "Category name exceeds maximum length" });
+    }
+
+    const category = await categoryModel.findByIdAndUpdate(id, { name }, { new: true });
     if (!category) {
       return res.status(404).json({ message: "Category not found" });
     }
