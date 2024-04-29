@@ -52,13 +52,13 @@ const orderSchema = new mongoose.Schema({
     firstName: {
       type: String,
       required: true,
-      match: /^[a-zA-Z\s'-]+$/,
+      match: /^[a-zA-Z]+$/,
       maxlength: 50,
     },
     lastName: {
       type: String,
       required: true,
-      match: /^[a-zA-Z\s'-]+$/,
+      match: /^[a-zA-Z]+$/,
       maxlength: 50,
     },
     email: {
